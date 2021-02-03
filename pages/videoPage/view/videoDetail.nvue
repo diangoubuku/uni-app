@@ -1,0 +1,105 @@
+<template>
+	<view class="videoDetail">
+		<LtitleBar :titleText="titleText" :showBack="true"></LtitleBar>
+		<view class="videoBox">
+			<video class="videoDom" src="/static/videos/3.mp4" controls></video> 
+		</view>
+		<view style="padding-top:34rpx;padding-right: 32rpx;padding-bottom: 10rpx;padding-left: 32rpx;">
+			<view class="">
+				<text style="font-size:34rpx;line-height: 46rpx;margin-right:60rpx">{{listInfo.titleText}}</text>	
+				<text class="iconfont" style="line-height:46rpx;font-size:50rpx;color:#000;position:absolute;right:0;top:0">&#xe693</text>
+			</view>
+			<view class="" style="flex-direction: row;padding-top:18rpx;padding-bottom:16rpx;">
+				<text style="margin-right:12rpx;font-size:22rpx;color:rgba(0,0,0,.54)">{{listInfo.playedNum > 10000 ? (Math.round(listInfo.playedNum / 1000) / 10 + "万") : listInfo.playedNum}}次播放</text> 
+				<text style="line-height:0;margin-right:12rpx;font-size:22rpx;color:rgba(0,0,0,.54);line-height:22rpx">|</text>
+				<text style="margin-right:24rpx;font-size:22rpx;color:rgba(0,0,0,.54)">{{listInfo.hasDate}}</text>
+			</view>
+			<view class="" style="flex-direction: row;padding-top:20rpx;padding-bottom: 20rpx;">
+				<button style="flex: 1;height:84rpx;border-radius:42rpx;margin-right:24rpx">
+					<text class="iconfont" style="line-height:84rpx;font-size:50rpx;color:#000">&#xe693</text>
+					<text style="font-size:26rpx;line-height:84rpx;margin-left:10rpx">{{listInfo.awesome}}</text>						
+				</button>
+				<button style="flex: 1;height:84rpx;border-radius:42rpx;margin-right:24rpx">
+					<text class="iconfont" style="line-height:84rpx;font-size:50rpx;color:#000">&#xe693</text>
+					<text style="font-size:26rpx;line-height:84rpx;margin-left:10rpx">收藏</text>						
+				</button>
+				<button style="flex: 1;height:84rpx;border-radius:42rpx;">
+					<text class="iconfont" style="line-height:84rpx;font-size:50rpx;color:#000">&#xe693</text>
+					<text style="font-size:26rpx;line-height:84rpx;margin-left:10rpx">分享</text>						
+				</button>
+			</view>
+		</view>
+		<view style="padding-top:40rpx;padding-left:32rpx;padding-right: 32rpx;border-top-width: 2rpx;border-top-color: rgba(0,0,0,.02);">
+			<list>
+				<cell>
+					<text style="font-size:30rpx;line-height: 30rpx;padding-bottom: 20rpx;">相关推荐</text>	
+				</cell>
+				<cell v-for="(items,index) in listInfo.tj" :key="index" style="padding-top:16rpx;padding-bottom:16rpx" v-if="showMore || index < 3">
+					<view class="" style="flex-direction: row;">
+						<view class="" style="width:280rpx;height:158rpx">
+							<video :src="items.video" controls style="width:280rpx;height:158rpx"></video>
+						</view>
+						<view class="" style="margin-left:24rpx;width:358rpx;margin-top:20rpx">
+							<text style="font-size: 28rpx;line-height: 40rpx;text-overflow: ellipsis;lines:2">{{items.titleText}}</text>
+							<view class="" style="flex-direction: row;padding-top:14rpx">
+								<text style="font-size:22rpx;line-height: 28rpx;color:rgba(0,0,0,.54);">{{items.playedNum > 10000 ? (Math.round(items.playedNum / 1000) / 10 + "万") : items.playedNum}}次播放</text>
+								<text style="font-size:22rpx;line-height: 28rpx;color:rgba(0,0,0,.54)">|</text>
+								<text style="font-size:22rpx;line-height: 28rpx;color:rgba(0,0,0,.54)">{{items.hasDate}}</text>
+							</view>
+						</view>
+					</view>
+				</cell>
+				<cell v-if="!showMore" style="margin-top:30rpx;margin-bottom:16rpx;" @click="changeShowMore">
+					<text style="text-align: center;color:#f00;height:30rpx;line-height: 30rpx;font-size: 24rpx;">点击查看更多视频</text>
+				</cell>
+				<cell>
+					<text style="margin-top:32rpx;margin-bottom:8rpx;font-size: 30rpx;text-align: left;">评论|0</text>
+				</cell>
+			</list>
+		</view>
+	</view>
+</template>
+
+<script>
+	import LtitleBar from "../../commons/LtitleBar.nvue"
+	export default {
+		components:{
+			LtitleBar
+		},
+		data(){
+			return{
+				titleText:"video",
+				listInfo:{
+					video:"https//v3-dy-o.zjcdn.com/cb8c64bb33558249b9be075eda94f2dd/5ff143e8/video/tos/cn/tos-cn-ve-4/f63234c6f54a45369cd21038a3370b4c/?a=3586&br=753&bt=251&cd=0%7C0%7C0&cr=0&cs=0&cv=1&dr=0&ds=1&er=&l=20210103110740010202089136498F8D0A&lr=&mime_type=video_mp4&qs=0&rc=ajhwbzppcDw5czMzOjczM0ApMzY6PGRlNGQ4N2dnMzc6ZGc0YWRvZjRgZTBfLS0yLS9zczBhMDVeYV4uXi8xMjFgLzI6Yw%3D%3D&vl=&vr=",
+					titleText:"阿尔弗雷德大帝的遗嘱手稿数字化重现！对财产分配慎重妥帖！",
+					playedNum:74502,
+					hasDate:"2020-10-20",
+					awesome:106,
+					tj:[
+						{video:"https//v3-dy-o.zjcdn.com/cb8c64bb33558249b9be075eda94f2dd/5ff143e8/video/tos/cn/tos-cn-ve-4/f63234c6f54a45369cd21038a3370b4c/?a=3586&br=753&bt=251&cd=0%7C0%7C0&cr=0&cs=0&cv=1&dr=0&ds=1&er=&l=20210103110740010202089136498F8D0A&lr=&mime_type=video_mp4&qs=0&rc=ajhwbzppcDw5czMzOjczM0ApMzY6PGRlNGQ4N2dnMzc6ZGc0YWRvZjRgZTBfLS0yLS9zczBhMDVeYV4uXi8xMjFgLzI6Yw%3D%3D&vl=&vr=",times:"01:04",titleText:"和平精英表演赛迪丽热巴现场出糗，代言人没玩过游戏？",playedNum:65000,hasDate:"4天前"},
+						{video:"https//v3-dy-o.zjcdn.com/cb8c64bb33558249b9be075eda94f2dd/5ff143e8/video/tos/cn/tos-cn-ve-4/f63234c6f54a45369cd21038a3370b4c/?a=3586&br=753&bt=251&cd=0%7C0%7C0&cr=0&cs=0&cv=1&dr=0&ds=1&er=&l=20210103110740010202089136498F8D0A&lr=&mime_type=video_mp4&qs=0&rc=ajhwbzppcDw5czMzOjczM0ApMzY6PGRlNGQ4N2dnMzc6ZGc0YWRvZjRgZTBfLS0yLS9zczBhMDVeYV4uXi8xMjFgLzI6Yw%3D%3D&vl=&vr=",times:"01:04",titleText:"和平精英表演赛迪丽热巴现场出糗，代言人没玩过游戏？",playedNum:65000,hasDate:"4天前"},
+						{video:"https//v3-dy-o.zjcdn.com/cb8c64bb33558249b9be075eda94f2dd/5ff143e8/video/tos/cn/tos-cn-ve-4/f63234c6f54a45369cd21038a3370b4c/?a=3586&br=753&bt=251&cd=0%7C0%7C0&cr=0&cs=0&cv=1&dr=0&ds=1&er=&l=20210103110740010202089136498F8D0A&lr=&mime_type=video_mp4&qs=0&rc=ajhwbzppcDw5czMzOjczM0ApMzY6PGRlNGQ4N2dnMzc6ZGc0YWRvZjRgZTBfLS0yLS9zczBhMDVeYV4uXi8xMjFgLzI6Yw%3D%3D&vl=&vr=",times:"01:04",titleText:"和平精英表演赛迪丽热巴现场出糗，代言人没玩过游戏？",playedNum:65000,hasDate:"4天前"},
+						{video:"https//v3-dy-o.zjcdn.com/cb8c64bb33558249b9be075eda94f2dd/5ff143e8/video/tos/cn/tos-cn-ve-4/f63234c6f54a45369cd21038a3370b4c/?a=3586&br=753&bt=251&cd=0%7C0%7C0&cr=0&cs=0&cv=1&dr=0&ds=1&er=&l=20210103110740010202089136498F8D0A&lr=&mime_type=video_mp4&qs=0&rc=ajhwbzppcDw5czMzOjczM0ApMzY6PGRlNGQ4N2dnMzc6ZGc0YWRvZjRgZTBfLS0yLS9zczBhMDVeYV4uXi8xMjFgLzI6Yw%3D%3D&vl=&vr=",times:"01:04",titleText:"和平精英表演赛迪丽热巴现场出糗，代言人没玩过游戏？",playedNum:65000,hasDate:"4天前"},
+						{video:"https//v3-dy-o.zjcdn.com/cb8c64bb33558249b9be075eda94f2dd/5ff143e8/video/tos/cn/tos-cn-ve-4/f63234c6f54a45369cd21038a3370b4c/?a=3586&br=753&bt=251&cd=0%7C0%7C0&cr=0&cs=0&cv=1&dr=0&ds=1&er=&l=20210103110740010202089136498F8D0A&lr=&mime_type=video_mp4&qs=0&rc=ajhwbzppcDw5czMzOjczM0ApMzY6PGRlNGQ4N2dnMzc6ZGc0YWRvZjRgZTBfLS0yLS9zczBhMDVeYV4uXi8xMjFgLzI6Yw%3D%3D&vl=&vr=",times:"01:04",titleText:"和平精英表演赛迪丽热巴现场出糗，代言人没玩过游戏？",playedNum:65000,hasDate:"4天前"}
+						
+					]
+				},
+				showMore:false
+			}
+		},
+		methods:{
+			changeShowMore(){
+				this.showMore = !this.showMore
+			}
+		},
+		onUnload(){
+			console.log("页面卸载")
+		}
+	}
+</script>
+
+<style scoped>
+.videoDetail{width:750rpx;background-color:#fff;padding-top:561.875rpx;padding-bottom:140rpx}
+.videoBox{position:fixed;top:140rpx;background-color:#0f0}
+.videoDom{width:750rpx;height:421.875rpx;}
+</style>

@@ -1,0 +1,44 @@
+<template>
+	<view class="page-body">
+	        <view class="uni-padding-wrap uni-common-mt" style="height:1000rpx;">
+	            <movable-area style="background-color:#00f;height:800rpx;width:750rpx;position:fixed;left:0;top:80rpx">
+	                <movable-view class="max" direction="all" style="width:75rpx;height:10rpx;left:0;bottom:0;background-color:#fff">
+						<text style="background-color:#f00">1111</text>
+					</movable-view>
+	            </movable-area>
+	        </view>
+	    </view>
+</template>
+
+<script>
+	export default {
+		data() {
+		        return {
+		            x: 0,
+		            y: 0,
+		            old: {
+		                x: 0,
+		                y: 0
+		            }
+		        }
+		    },
+		    methods: {
+		        tap: function(e) {
+		            this.x = this.old.x
+		            this.y = this.old.y
+		            this.$nextTick(function() {
+		                this.x = 30
+		                this.y = 30
+		            })
+		        },
+		        onChange: function(e) {
+		            this.old.x = e.detail.x
+		            this.old.y = e.detail.y
+		        }
+		    }
+	}
+</script>
+
+<style>
+
+</style>

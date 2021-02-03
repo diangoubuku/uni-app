@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "movie",
+  "usingComponents": {
+    "tab-bar": "/components/tabBar/tabBar"
+  }
+}

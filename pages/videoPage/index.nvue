@@ -1,0 +1,104 @@
+<template>
+	<view class="imgPage">
+		<titleBar :activeI="activeI"></titleBar>
+		<LtitleBar :titleText="titleText" :showBack="false"></LtitleBar>
+		<swiper class="swiperPage" :style="'height:' + scrollViewH + 'rpx'" :current="activeI" @change="changeCurr">
+			<swiper-item>
+				<!-- <scroll-view scroll-y="true" :show-scrollbar="false">
+				</scroll-view> -->
+					<tjssA :scrollViewH="scrollViewH"></tjssA>
+			</swiper-item>
+			<swiper-item>
+				<scroll-view scroll-y="true" :show-scrollbar="false">
+					<xspssA :widProp="widProp"></xspssA>
+				</scroll-view>
+			</swiper-item>
+			<swiper-item>
+				<scroll-view scroll-y="true" >
+					<ysssA></ysssA>
+				</scroll-view>
+			</swiper-item>
+			<swiper-item>
+				<scroll-view scroll-y="true" :show-scrollbar="false">
+					<yxssA></yxssA>
+				</scroll-view>
+			</swiper-item>
+			<swiper-item>
+				<scroll-view scroll-y="true" :show-scrollbar="false">
+					<xpssA></xpssA>
+				</scroll-view>
+			</swiper-item>
+			<swiper-item>
+				<scroll-view scroll-y="true" :show-scrollbar="false">
+					<vlogssA></vlogssA>
+				</scroll-view>
+			</swiper-item>
+		</swiper>
+		<tabBars :tabI="tabI"></tabBars>
+	</view>
+</template>
+
+<script>
+	import LtitleBar from "../commons/LtitleBar.nvue"
+	import titleBar from "./titleBar.nvue"
+	
+	import tjssA from "./page/tj.nvue"
+	import xspssA from "./page/xsp.nvue"
+	import xpssA from "./page/xp.nvue"
+	import vlogssA from "./page/vlog.nvue"
+	import ysssA from "./page/ys.nvue"
+	import yxssA from "./page/yx.nvue"
+	
+	
+	import tabBars from "../commons/tabBar.nvue"
+	export default {
+		components:{
+			LtitleBar,
+			titleBar,
+			
+			tjssA,
+			xspssA,
+			xpssA,
+			vlogssA,
+			ysssA,
+			yxssA,
+			
+			tabBars
+		},
+		data(){
+			return{
+				titleText:"video",
+				tabI:1,
+				activeI:0,
+				scrollViewH:1256,
+				widProp:1
+			}
+		},
+		onLoad(){
+			var _this = this;
+			uni.hideTabBar();
+			uni.$on('changeTitle',function(i){
+				_this.activeI = i
+				console.log('监听到事件来自 update ，携带参数 msg 为：' + i);
+			})
+			uni.getSystemInfo({
+				success:function(res){
+					var hNum = 750 / res.windowWidth * res.windowHeight;
+					_this.widProp = res.windowWidth / 750;
+					_this.scrollViewH = hNum - 300;
+					console.log("系统信息",res)
+				}
+			})
+		},
+		methods:{
+			changeCurr(res){
+				this.activeI = res.detail.current;
+			}
+		}
+	}
+</script>
+
+<style scoped>
+	.imgPage{width:750rpx;padding:232rpx 0 98rpx;flex-direction:column}
+	.titleView{width:750rpx;font-size:30rpx;text-overflow: ellipsis;lines:1}
+</style>

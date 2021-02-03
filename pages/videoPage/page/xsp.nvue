@@ -1,0 +1,55 @@
+<template>
+	<waterfall column-count="2" column-width="auto" :column-gap="columnNum" :right-gap="0">
+
+		<cell v-for="(items,index) in videoList" :key="index" style="margin-bottom:10rpx">
+			<view class="" style="margin-bottom:10rpx;">
+				<image src="/static/images/xsp/2.jpg" mode="widthFix" style="width:370rpx" @click="navgTo"> 
+					<view class="" style="position:absolute;left:26rpx;bottom:28rpx">
+						<image src="/static/images/xsp/2.jpg" mode="scaleToFill" style="width:40rpx;height:40rpx;border-radius: 20rpx;"></image>
+					</view>
+					<view class="" style="position: absolute;bottom:28rpx;right:26rpx;flex-direction: row;">
+						<text class="iconfont" style="line-height:40rpx;font-size:32rpx;color:#fff;margin-right:12rpx;color:#fff;line-height: 40rpx;">&#xe8c3;</text>
+						<text style="font-size: 22rpx;color: #fff;line-height: 44rpx;">66</text>				
+					</view>
+				</image>
+				<text class="iconfont" style="line-height:46rpx;font-size:46rpx;color:#fff;margin-right:12rpx;position: absolute;top:28rpx;right:26rpx;" @click.stop="closeCli(index)">&#xe6ca;</text>
+			</view>
+		</cell>
+	</waterfall>
+</template>
+
+<script>
+	export default {
+		props:["widProp"],
+		data(){
+			return{
+				videoList:["","","","","","","","","","","","","",""],
+				columnNum:10
+			}
+		},
+		mounted() {
+			this.columnNum = this.widProp * 10
+		},
+		methods:{
+			navgTo(){
+				console.log("跳转")
+				uni.navigateTo({
+				    url: '/pages/videoPage/view/xspIndex'
+				});
+			},
+			closeCli(i){
+				console.log("删除")
+				this.videoList.splice(i,1)
+			}
+		},
+		watch:{
+			widProp(){
+				this.columnNum = this.widProp * 10
+			}
+		}
+	}
+</script>
+
+<style scoped>
+.historyPage{background-color:rgba(245,246,245,1)}
+</style>

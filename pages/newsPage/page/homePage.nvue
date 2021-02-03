@@ -1,0 +1,134 @@
+<template>
+	<!-- 瀑布流布局 -->
+	<list class="homePage" :show-scrollbar="false" :scrollbale="true">
+		<!-- 顶部全宽 -->
+		<refresh class="refreshBox" @refresh="onrefresh" @pullingdown="onpullingdown" :display="refreshing ? 'show' : 'hide'">
+			<text class="iconfont" style="text-align:center;font-size:40rpx;line-height: 150rpx;">&#xe65d;</text>
+		</refresh>
+		<cell v-for="(items,index) of titleList" :key="index" ref="firCell" style="background-color: #008000;" @appear="firCellonappear" @disappear="firCellondisappear">
+			<!-- <image :src="items.img" mode="widthFix" v-if="items.bigImg"> -->
+			<image :src="items.img" mode="widthFix" v-if="items.bigImg" style="width:750rpx">
+				<view class="textBox">
+					<text class="white">{{items.text}}</text>
+				</view>
+			</image>
+		</cell>
+		<!-- 第二层加内边距 -->
+		<cell v-for="(items,index) of newsLIst" :key="items" class="bodyBox" @appear="aaa1" @disappear="bbb1('myssd',items.video)">
+			<view v-if="items.bigImg">
+				<text class="bodyTitle">{{items.text}}</text>
+				<image :src="items.img" mode="widthFix" style="width:710rpx">
+					<view class="textBox">
+						<text class="white">{{items.text}}</text>
+					</view>
+				</image>	
+			</view>
+			<text class="footTextNum" v-if="items.bigImg">{{items.footText}}</text>
+			<view class="footerBox" v-if="!items.bigImg">
+				<view class="leftBox">
+					<text class="leftTitle">{{items.title}}</text>
+					<view class="f_row">
+						<text class="footTextTime" v-if="items.times">{{items.times}}</text>
+						<text class="footTextNum" v-if="items.subsNum">{{items.subsNum}}</text>								
+					</view>
+				</view>
+				<view class="rightBox">
+					<image :src="items.img" mode="widthFix" v-if="items.img" style="width:237rpx"></image>
+					<video :src="items.video" id="myssd" controls v-if="items.video" class="videoBox"></video>
+				</view>				
+			</view>
+		</cell>
+		<text class="iconfont" v-if="!firCellAppear" style="position:fixed;width:90rpx;height:90rpx;border-radius: 45rpx;background-color:rgba(200,202,203,1);right:35rpx;bottom:120rpx;text-align:center;line-height:90rpx;color:#fff" @click="scrollToTop">&#xe65b;</text>
+	</list>
+</template>
+
+<script>
+	// #ifdef APP-PLUS
+	const domModule = weex.requireModule('dom');
+	// #endif
+	export default {
+		data(){
+			return{
+				titleList:[
+					{text:"2019年GDP现价总量986515亿元1",img:"https://nimg.ws.126.net/?url=http%3A%2F%2Fcms-bucket.ws.126.net%2F2020%2F1230%2F7b758863j00qm4v65004gc000s600e3c.jpg&thumbnail=720y355&quality=85&type=jpg",bigImg:true}
+				],
+				newsLIst:[
+					{footText:"测试2",text:"坦克300惊艳上市",img:"https://yt-adp.ws.126.net/jdu/1014507_amdc_20201229.jpg",bigImg:true},
+					{title:'视频测试',video:"https://flv2.bn.netease.com/e6f0eea64f31cf37b7ddb770762daa43073d543f654bf9d64e87f165e1373bcb545105bea5cbf36419ccc548ac419b8d8e43e3857172e40d22906cc15f9e775cc5b10fdd194bb063fce5fcab6fec97dafc4a45860106024857e7e13385bf9cfdf0aa67c186e1fbbb37ac3d33541a9fede47631155c8a8e9e.mp4",times:"2小时前",subsNum:16000,bigImg:false},
+					{title:'"呼格吉勒图冤案"制造者之一自缢身亡 时任刑警队长',img:"https://cms-bucket.ws.126.net/2020/1230/b8e2b37ap00qm4zhv00c4c000s600e3c.png?imageView&thumbnail=234y146&quality=45&interlace=1&enlarge=1&type=png",times:"2小时前",subsNum:16000,bigImg:false},
+					{title:'女家长举报校长婚外情：偷进校园发生关系 为他堕胎',img:"https://spider.ws.126.net/special/7e06c1b5f96f40c73ab69fc388a4ae21.jpg?imageView&thumbnail=234y146&quality=45&interlace=1&enlarge=1&type=png",times:"2小时前",subsNum:45000,bigImg:false},
+					{title:'超20层高楼 业主买最下面两层12户 砸掉承重墙全打通',img:"https://crawl.ws.126.net/img/45f4252567681d9ec728afb50d6fc4ec.jpg?imageView&thumbnail=234y146&quality=45&interlace=1&enlarge=1&type=png",times:"2小时前",subsNum:32000,bigImg:false},
+					{title:'父亲87岁 母亲73岁患癌 29岁独生女:走一步看一步吧',img:"https://crawl.ws.126.net/3948d8525d011fd6340a56b238079290.jpg?imageView&thumbnail=234y146&quality=45&interlace=1&enlarge=1&type=png",times:"2小时前",subsNum:160,bigImg:false},
+					{title:'男子和相亲女车内发生关系4天后提分手 理由奇葩',img:"https://cms-bucket.ws.126.net/2020/1229/c4c9953bj00qm3vfz0080c0009c0070c.jpg?imageView&thumbnail=234y146&quality=45&interlace=1&enlarge=1&type=png",times:"2小时前",subsNum:6000,bigImg:false},
+					{title:'谢贤坦言当年很后悔生下谢霆锋 原因令人人哭笑不得',img:"https://cms-bucket.ws.126.net/2020/1230/e89cbc87j00qm52gx000tc000s600e3c.jpg?imageView&thumbnail=234y146&quality=45&interlace=1&enlarge=1&type=png",times:"2小时前",subsNum:62000,bigImg:false},
+					{title:'体操女神"挺胸照"意外走红 上恋爱综艺被富二代pua',img:"https://cms-bucket.ws.126.net/2020/1230/d248481dj00qm4s45008kc0009c0070c.jpg?imageView&thumbnail=234y146&quality=45&interlace=1&enlarge=1&type=png",times:"2小时前",subsNum:64000,bigImg:false},
+				],
+				refreshing:false,
+				firCellAppear:true
+			}
+		},
+		methods:{
+			onrefresh(){
+				console.log("顶部加载出现",this.refreshing)
+				this.refreshing = true;
+				setTimeout(()=>{
+					this.refreshing = false;
+				},2000)
+			},
+			onpullingdown(res){
+				// console.log("滑动操作",res)
+				// setTimeout(()=>{
+				// 	this.refreshing = !this.refreshing;
+				// },3000)
+			},
+			firCellonappear(){
+				this.firCellAppear = true;
+				// console.log("大元素出现")
+			},
+			firCellondisappear(){
+				this.firCellAppear = false;
+				// console.log("大元素隐藏")
+			},
+			aaa1(){
+				// console.log("小元素出现")
+			},
+			bbb1(id,str){
+				if(str !== undefined){
+					// 获取video元素并关闭视频
+					var videoDom = uni.createVideoContext(id,this);
+					console.log("视频状态",videoDom)
+					videoDom.pause()
+				}
+				console.log("小元素隐藏",str)
+			},
+			scrollToTop(){
+				// 返回顶部
+				domModule.scrollToElement(this.$refs.firCell[0],{
+					offset:0,
+					animated:true
+				})
+				console.log("返回顶部=>")
+			},
+		}
+	}
+</script>
+
+<style scoped>
+.homePage{background-color: #fff;}
+.coverView{position: absolute;}
+.titleText{line-height: 70rpx;}
+.textBox{position:absolute;left:30rpx;bottom:30rpx;}
+.white{color:#fff}
+.bodyBox{padding:0 20rpx;border-bottom-width: 1px;border-bottom-color: rgba(220,220,220,1);}
+.footerBox{flex-direction: row;padding:30rpx 0}
+.footTextTime{line-height: 70rpx;color:rgba(180,180,180,1);margin-right:32rpx;font-size:30rpx}
+.footTextNum{line-height: 70rpx;color:rgba(180,180,180,1);font-size:30rpx;}
+.bodyTitle{line-height: 60rpx;}
+.leftBox{flex: 2;margin-right:20rpx}
+.rightBox{flex:1;}
+.leftTitle{font-size:34rpx;lines: 2;text-overflow: ellipsis;}
+.f_row{flex-direction: row;}
+.videoBox{width:237rpx;height:148rpx}
+.refreshBox{width:750rpx;flex-direction: row;justify-content: center;}
+/* .titleView{width:750rpx;font-size:30rpx;text-overflow: ellipsis;lines:1} */
+</style>

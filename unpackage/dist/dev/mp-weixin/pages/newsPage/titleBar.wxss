@@ -1,0 +1,5 @@
+
+.titleBar{width:100%;background-color:#fff;height:70rpx;left:0;line-height:70rpx;-webkit-box-sizing: border-box;box-sizing: border-box;}
+.titleBar{top:0}
+.textSpan{margin:0 24rpx;}
+

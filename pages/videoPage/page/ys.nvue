@@ -1,0 +1,52 @@
+<template>
+	<list class="ysPage">
+		<cell v-for="(items,index) in videoList" :key="index">
+			<view class="" style="flex-direction: row;padding-left:34rpx;padding-top:32rpx;padding-bottom:30rpx;padding-right:34rpx;justify-content: space-between;background-color:#fff;">
+				<view class="" style="flex-direction: row;">
+					<image src="/static/images/news/12.png" mode="scaleToFill" style="border-radius:23rpx;width:46rpx;height:46rpx;margin-right:12rpx"></image>
+					<text style="font-size:34rpx;line-height: 46rpx;font-weight: 600;margin-right:24rpx">吃瓜团长</text>
+					<text style="color:#0077AA;font-size:30rpx;line-height: 46rpx;">关注</text>
+				</view>
+				<view class="" style="flex-direction: row;">
+					<text class="iconfont" style="line-height:46rpx;font-size:46rpx;color:#000;margin-right:12rpx">&#xe627</text>
+					<text style="margin-right:24rpx">6528</text>
+					<text class="iconfont" style="line-height:46rpx;font-size:46rpx;color:#000;">&#xe627</text>
+				</view>
+			</view>
+			<view class="">
+				<image src="/static/images/news/12.png" mode="widthFix" style="width:750rpx"></image>
+				<view class="" style="position:absolute;width:100rpx;height:100rpx;border-radius:50rpx;background-color:rgba(0,0,0,.44);left:325rpx;top:160.94rpx">
+					<text class="iconfont" style="line-height:100rpx;font-size:50rpx;color:#fff;">&#xe627</text>					
+				</view>
+			</view>
+			<view class="" style="flex-direction: row;padding-left:32rpx;padding-top:18rpx;padding-bottom:16rpx;padding-right:32rpx;justify-content: space-between;background-color:#fff;margin-bottom:18rpx">
+				<view class="" style="flex-direction: row;">
+					<text class="iconfont" style="line-height:46rpx;font-size:46rpx;color:#000;margin-right:12rpx">&#xe627</text>
+					<text style="font-size: 28rpx;line-height: 46rpx;">分享</text>
+				</view>
+				<view class="" style="flex-direction: row;">
+					<text class="iconfont" style="line-height:46rpx;font-size:46rpx;color:#000;margin-right:12rpx">&#xe627</text>
+					<text style="font-size: 28rpx;line-height: 46rpx;">105</text>
+				</view>
+				<view class="" style="flex-direction: row;">
+					<text class="iconfont" style="line-height:46rpx;font-size:46rpx;color:#000;margin-right:12rpx">&#xe627</text>
+					<text style="font-size: 28rpx;line-height: 46rpx;">43</text>
+				</view>
+			</view>
+		</cell>
+	</list>
+</template>
+
+<script>
+	export default {
+		data(){
+			return{
+				videoList:["","","","","","","","","","","","","",""]
+			}
+		}
+	}
+</script>
+
+<style scoped>
+.ysPage{background-color:rgba(245,246,245,1)}
+</style>

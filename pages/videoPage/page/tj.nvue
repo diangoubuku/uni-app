@@ -1,0 +1,116 @@
+<template>
+	<view class="tj" :style="'height:' + scrollViewH + 'rpx'">
+		<list @scroll="videoScrolled" :scrollable="true" :show-scrollbar="false">
+			<cell v-for="(items,index) in dataList" :key="index" style="padding-bottom:56rpx" @Disappear="aaaa(index)">
+				<navigator url="/pages/videoPage/view/videoDetail" open-type="navigate">
+					<text style="font-size:34rpx;line-height:46rpx;color:#000;margin-bottom:8rpx">{{items.title}}</text>					
+				</navigator>
+				<view style="flex-direction: row;padding-top:8rpx">
+					<text class="firLitTitleText">{{items.name}}</text>
+					<text class="secLitTitleText">|</text>
+					<text class="thrLitTitleText" :style="items.attention ? 'color:rgba(0,0,0,.54)' : 'color:rgba(13,81,234,.8)'">{{items.attention ? '已关注' : '关注'}}</text>
+					<text class="forLitTitleText">评论{{items.comment.length}}</text>
+				</view>
+				<!-- poster封面图 、 show-play-btn底部播放按钮 、 show-fullscreen-btn全屏按钮 、show-progress进度条 、controls是否显示默认控件-->
+				<view>
+					<video src="/static/videos/3.mp4" class="videoBox" :id="'tj_video'+index" :object-fit="'contain'" @play="isPlay(index)" @pause="isPause(index)" @ended="isEnded(index)" :show-center-play-btn="false">
+						<view class="openBtn" @click="openVideoCli(index)" v-if="videoData[index].status != 2">
+							<text class="iconfont" style="line-height:100rpx;font-size:50rpx;color:#fff" v-if="videoData[index].status == 3">&#xe607;</text>
+							<text class="iconfont" style="line-height:100rpx;font-size:50rpx;color:#fff" v-else>&#xe610;</text>
+						</view>
+						<text class="replayText" v-if="videoData[index].status == 3">重播</text>
+					</video>
+				</view>
+			</cell>
+		</list>		
+	</view>
+</template>
+"{"real_name":"天星13900000001","recharge":200,"withdraw":400,"t_num":300,"level_cnt":20,"task_num":700}"
+{'real_name':'天星13900000001','recharge':200,'withdraw':400,'t_num':300,'level_cnt':20,'task_num':700}
+<script>
+	export default {
+		props:["proportion","scrollViewH"],
+		data(){
+			return{
+				dataList:[
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试1",attention:false,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://anchorpost.msstatic.com/cdnimage/anchorpost/1087/0e/e70f70894f22e202bb5bd7f64235ad_1_1609397230.jpg?imageview/4/0/w/338/h/190/blur/1"},
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试2",attention:true,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://anchorpost.msstatic.com/cdnimage/anchorpost/1038/c6/3017eb4c1d5a6369ae2a160e54c6c9_1663_1589513745.jpg?imageview/4/0/w/338/h/190/blur/1"},
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试3",attention:false,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://anchorpost.msstatic.com/cdnimage/anchorpost/1038/c6/3017eb4c1d5a6369ae2a160e54c6c9_1663_1589513745.jpg?imageview/4/0/w/338/h/190/blur/1"},
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试4",attention:false,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://anchorpost.msstatic.com/cdnimage/anchorpost/1009/6a/8ecf9a79c9b790b5c64292722b8cbd_3_2356_1607904320.jpg?imageview/4/0/w/338/h/190/blur/1"},
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试5",attention:false,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://live-cover.msstatic.com/huyalive/17363578-17363578-74575999651545088-34850612-10057-A-0-1/20210101140149.jpg?x-oss-process=image/resize,limit_0,m_fill,w_338,h_190/sharpen,80/format,jpg/interlace,1/quality,q_90"},
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试6",attention:false,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://anchorpost.msstatic.com/cdnimage/anchorpost/1087/0e/e70f70894f22e202bb5bd7f64235ad_1_1609397230.jpg?imageview/4/0/w/338/h/190/blur/1"},
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试7",attention:true,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://anchorpost.msstatic.com/cdnimage/anchorpost/1087/0e/e70f70894f22e202bb5bd7f64235ad_1_1609397230.jpg?imageview/4/0/w/338/h/190/blur/1"},
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试8",attention:false,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://live-cover.msstatic.com/huyalive/17363578-17363578-74575999651545088-34850612-10057-A-0-1/20210101140149.jpg?x-oss-process=image/resize,limit_0,m_fill,w_338,h_190/sharpen,80/format,jpg/interlace,1/quality,q_90"},
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试9",attention:false,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://anchorpost.msstatic.com/cdnimage/anchorpost/1087/0e/e70f70894f22e202bb5bd7f64235ad_1_1609397230.jpg?imageview/4/0/w/338/h/190/blur/1"},
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试10",attention:false,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://anchorpost.msstatic.com/cdnimage/anchorpost/1087/0e/e70f70894f22e202bb5bd7f64235ad_1_1609397230.jpg?imageview/4/0/w/338/h/190/blur/1"},
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试11",attention:false,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://anchorpost.msstatic.com/cdnimage/anchorpost/1066/fa/61a5ecfa5e1365bef80c00421579ee_0_1609399374.jpg?imageview/4/0/w/338/h/190/blur/1"},
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试12",attention:false,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://anchorpost.msstatic.com/cdnimage/anchorpost/1087/0e/e70f70894f22e202bb5bd7f64235ad_1_1609397230.jpg?imageview/4/0/w/338/h/190/blur/1"},
+					{title:"有7000年历史的古埃及巨石阵！探秘古埃及凝聚人心的粘合剂！",name:"测试13",attention:false,comment:[1,2,3,4,5,6,7,8,9,4,5,3,2,1,47,65],img:"https://anchorpost.msstatic.com/cdnimage/anchorpost/1087/0e/e70f70894f22e202bb5bd7f64235ad_1_1609397230.jpg?imageview/4/0/w/338/h/190/blur/1"},
+				],
+				openVideo:-1,
+				videoData:[
+					{status:1},
+					{status:1},
+					{status:1},
+					{status:1},
+					{status:1},
+					{status:1},
+					{status:1},
+					{status:1},
+					{status:1},
+					{status:1},
+					{status:1},
+					{status:1},
+					{status:1}
+				]
+			}
+		},
+		mounted(){
+			
+		},
+		methods:{
+			isPlay(i){
+				this.openVideo = i;
+				this.videoData[i].status = 2;
+			},
+			isPause(i){
+				this.openVideo = -1;
+				this.videoData[i].status = 1;
+			},
+			isEnded(i){
+				this.openVideo = -1;
+				this.videoData[i].status = 3;
+			},
+			openVideoCli(i){
+				var oldStr = "tj_video" + this.openVideo;
+				var newStr = "tj_video" + i;
+				var newVideoDom = uni.createVideoContext(newStr,this);
+				if(this.openVideo >= 0){
+					var oldVideoDom = uni.createVideoContext(oldStr,this);
+					oldVideoDom.pause()
+				}
+				newVideoDom.play();
+				this.openVideo = i;
+			},
+			videoScrolled(res){
+				
+			},
+			aaaa(){
+				var str = "tj_video" + this.openVideo;
+				var oldVideoDom = uni.createVideoContext(oldStr,this);
+				console.log(4441,oldVideoDom)
+			}
+		}
+	}
+</script>
+
+<style scoped>
+.tj{background-color:#fff;padding:10rpx 32rpx 0rpx;width:750rpx}
+.firLitTitleText{margin-right:12rpx;font-size:22rpx;color:rgba(0,0,0,.54)}
+.secLitTitleText{font-size:22rpx;color:rgba(0,0,0,.54);line-height:22rpx;margin-right:12rpx;}
+.thrLitTitleText{margin-right:24rpx;font-size:22rpx;color:rgba(0,0,0,.54)}
+.forLitTitleText{margin-right:24rpx;font-size:22rpx;color:rgba(0,0,0,.54)}
+.videoBox{width:686rpx;height:385.875rpx;margin-top:14rpx;}
+.openBtn{position:absolute;width:100rpx;height:100rpx;border-radius:50rpx;background-color:rgba(0,0,0,.44);left:293rpx;bottom:142.94rpx}
+.replayText{font-size:28rpx;width:100rpx;text-align: center;position:absolute;left:293rpx;bottom:100rpx;color:#fff}
+</style>

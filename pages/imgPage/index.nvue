@@ -1,0 +1,39 @@
+<template>
+	<view class="imgPage">
+		<LtitleBar :titleText="titleText"></LtitleBar>
+		<text v-for="(items,index) of newsLIst" :key="index" class="titleView">{{items.title}}</text>
+		<tabBars :tabI="tabI"></tabBars>
+	</view>
+</template>
+
+<script>
+	import LtitleBar from "../commons/LtitleBar.nvue"
+	import tabBars from "../commons/tabBar.nvue"
+	export default {
+		components:{
+			LtitleBar,
+			tabBars
+		},
+		data(){
+			return{
+				titleText:"图片",
+				tabI:2,
+				newsLIst:[
+					{title:"测试1111。前端运行日志，请另行在小程序开发工具的控制台查看。编译成功。前端运行日志，请另行在小程序开发工具的控制台查看。"},
+					{title:"编译成功1。前端运行日志，请另行在小程序开发工具的控制台查看。编译成功。前端运行日志，请另行在小程序开发工具的控制台查看。"},
+					{title:"编译成功1。前端运行日志，请另行在小程序开发工具的控制台查看。编译成功。前端运行日志，请另行在小程序开发工具的控制台查看。"},
+					{title:"编译成功11111。前端运行日志，请另行在小程序开发工具的控制台查看。编译成功。前端运行日志，请另行在小程序开发工具的控制台查看。"},
+					{title:"编译成功。前端运行日志，请另行在小程序开发工具的控制台查看。编译成功。前端运行日志，请另行在小程序开发工具的控制台查看。"},
+					{title:"编译成功。前端运行日志，请另行在小程序开发工具的控制台查看。编译成功。前端运行日志，请另行在小程序开发工具的控制台查看。"},
+					{title:"编译成功。前端运行日志，请另行在小程序开发工具的控制台查看。编译成功。前端运行日志，请另行在小程序开发工具的控制台查看。"},
+					{title:"编译成功。前端运行日志，请另行在小程序开发工具的控制台查看。编译成功。前端运行日志，请另行在小程序开发工具的控制台查看。"}
+				]
+			}
+		}
+	}
+</script>
+
+<style>
+	.imgPage{width:750rpx;padding:70rpx 0 90rpx;flex-direction:column}
+	.titleView{width:750rpx;font-size:30rpx;text-overflow: ellipsis;lines:1}
+</style>

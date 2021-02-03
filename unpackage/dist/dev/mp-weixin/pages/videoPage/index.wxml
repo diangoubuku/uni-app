@@ -1,0 +1,1 @@
+<view><tab-bar vue-id="1e4f797c-1" tabI="{{tabI}}" bind:__l="__l"></tab-bar>video页1</view>

@@ -1,0 +1,48 @@
+<template>
+	<view class="titleBar">
+		<scroll-view scroll-x="true" class="scrollBox" :show-scrollbar="false">
+			<view class="box" v-for="(items,index) of titleArr" :key="index" @click="changeTit(index)">
+				<text :class="activeI == index ? 'textSpanActive' : 'textSpan'">{{items.text}}</text>
+				<text :class="activeI == index ? 'borromBorderActive' : 'borromBorder'"></text>
+			</view>
+		</scroll-view>
+	</view>
+</template>
+
+<script>
+	export default{
+		props:["activeI"],
+		data(){
+			return{
+				titleArr:[
+					{text:"推荐"},
+					{text:"小视频"},
+					{text:"影视"},
+					{text:"音效"},
+					{text:"小品"},
+					{text:"VLOG"},
+					{text:"农人"},
+					{text:"搞笑"},
+					{text:"军事"},
+					{text:"手工"},
+					{text:"情感"}
+				],
+			}
+		},
+		methods:{
+			changeTit(i){
+				uni.$emit('changeTitle',i)
+			}
+		}
+	}
+</script>
+
+<style>
+	.titleBar{position:fixed;background-color:rgba(245,247,249,1);left:0;top:140rpx;flex-direction: row;height:92rpx;width:750rpx;justify-content: space-around;border-bottom-width: 1px;border-bottom-color: rgba(220,220,220,1);}
+	.scrollBox{width:750rpx;flex-direction: row;}
+	.box{align-items: center;justify-content: center;}
+	.textSpanActive{margin:0 24rpx;height:88rpx;line-height:92rpx;color:#f00;}
+	.textSpan{margin:0 24rpx;height:88rpx;line-height:92rpx;}
+	.borromBorder{width:30rpx;border-bottom-width: 4rpx;border-bottom-color: rgba(250,0,0,0);height:4rpx}
+	.borromBorderActive{width:30rpx;border-bottom-width: 4rpx;border-bottom-color: rgba(250,0,0,1);height:4rpx}
+</style>

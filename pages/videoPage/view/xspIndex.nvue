@@ -1,0 +1,153 @@
+<template>
+	<view class="xspIndex"> <!-- :style="'height:' + scrHeight + 'rpx'"-->
+		<swiper class="swiper" :style="`height:${scrHeight}rpx;`" :vertical="true" :current="activeI" @change="changeCurr">
+			<swiper-item v-for="(item,index) in videoList" :key="index">
+				<view class="">			
+					<video src="/static/videos/3.mp4" :id="'xspIndex_' + index" class="videoDom" controls :direction="0" style="width:750rpx;height:1556rpx" :show-fullscreen-btn="false" @play="palyCli" :autoplay="activeI == 0 && index == 0" @click="videoCli">
+						<text class="iconfont" style="line-height:46rpx;font-size:50rpx;color:#fff;position:absolute;left:32rpx;top:88rpx;width:88rpx" @click="gateBackCli">&#xe6c3;</text>
+					</video>
+				</view>
+				<view class="" style="position:absolute;right:32rpx;bottom:500rpx;">
+					<text class="iconfont" style="color:#000;font-size:64rpx;color:#f00">&#xe60b;</text>
+					<text style="color:#fff;font-size:24rpx;text-align: center;">8.7w</text>
+				</view>
+				<view class="" style="position:absolute;right:32rpx;bottom:320rpx;" @click="messageBtn">
+					<text class="iconfont" style="color:#000;font-size:64rpx;color:#fff">&#xe602;</text>
+					<text style="color:#fff;font-size:22rpx;text-align: center;">5142</text>
+				</view>
+				<view class="" style="position:absolute;right:32rpx;bottom:140rpx;">
+					<text class="iconfont" style="color:#000;font-size:64rpx;color:#fff">&#xe650;</text>
+					<text style="color:#fff;font-size:24rpx;text-align: center;">365</text>
+				</view>
+			</swiper-item> 
+		</swiper>
+		<view class="inputKeyBordBox"  :style="'height:' + (scrHeight * 3 / 4) + 'rpx'" v-if="hasMessages">
+			<view class="">
+				<text style="color:#000">@马总{{index}}</text>
+				<text style="color:#000">电饭锅和规范化要回家一趟法规和规范化发过后吃不吃是黄金国际发生大幅度</text>		
+				<text style="color:#000">电饭锅和规范化要回家一趟法规和规范化发过后吃不吃是黄金国际发生大幅度</text>	
+				<text style="color:#000">电饭锅和规范化要回家一趟法规和规范化发过后吃不吃是黄金国际发生大幅度</text>	
+				<text style="color:#000">电饭锅和规范化要回家一趟法规和规范化发过后吃不吃是黄金国际发生大幅度</text>	
+				<text style="color:#000">电饭锅和规范化要回家一趟法规和规范化发过后吃不吃是黄金国际发生大幅度</text>	
+				<text style="color:#000">电饭锅和规范化要回家一趟法规和规范化发过后吃不吃是黄金国际发生大幅度</text>	
+				<text style="color:#000">电饭锅和规范化要回家一趟法规和规范化发过后吃不吃是黄金国际发生大幅度</text>	
+				<text style="color:#000">电饭锅和规范化要回家一趟法规和规范化发过后吃不吃是黄金国际发生大幅度</text>	
+			</view>
+			<view class="" style="width:750rpx;;height:88rpx;background-color:#fff;position:absolute;left:0;bottom:0rpx;border-top-width: 2rpx;border-top-color: rgba(220,220,220,1);flex-direction: row;justify-content: space-around">	
+				<text class="iconfont" style="font-size:56rpx;color:#000;height:88;line-height: 88rpx;" @click="hasMessages = false">&#xe6ba;</text>
+				<view class="" @click="hasBorderViewCli">
+					<input type="text" value="我来说两句"  style="height:56rpx;border-radius:28rpx;line-height:56rpx;padding-left:28rpx;background-color:rgba(200,200,200,1);font-size:32rpx;width:300rpx;margin-top:16rpx;margin-bottom:16rpx;color:rgba(0,0,0,.54)" :disabled="true"/>
+					<text class="iconfont" style="font-size:46rpx;color:#fff;position:absolute;height:88rpx;line-height: 90rpx;left:246rpx">&#xe69e;</text>
+				</view>
+				<view class="">
+					<text class="iconfont" style="font-size:56rpx;color:#000;height:88;line-height: 88rpx;">&#xe61e;</text>
+					<text style="position:absolute;left:20rpx;top:10rpx;background-color:#f00;height:32rpx;line-height:32rpx;font-size:22rpx;border-radius:16rpx;padding-left:10rpx;padding-right:10rpx;color:#000">457</text>
+				</view>
+				<text class="iconfont" style="font-size:56rpx;color:#000;height:88;line-height: 88rpx;">&#xe625;</text>
+				<text class="iconfont" style="font-size:56rpx;color:#000;height:88;line-height: 88rpx;">&#xe650;</text>
+			</view>
+		</view>
+		<view class="inputKeyBordView"  :style="'height:' + (scrHeight * 3 / 4) + 'rpx'" v-if="hasMessages && hasBorderView">
+			<view class="borderViewTitle">
+				<view class="" style="flex-direction: row;justify-content: space-between;height:108rpx">
+					<text style="font-size:32rpx;height:108rpx;line-height:108rpx" @click="cancelCli">取消</text>
+					<text style="font-size:32rpx;height:108rpx;line-height:108rpx" @click="returnCli">发送</text>
+				</view>
+				<view class="">
+					<textarea class="textAreaDom" type="text" value="dfvdf" :focus="true" @focus="textAreaFocus" :style="'height:' + textAreaHeight + 'rpx'"/>
+				</view>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+		data(){
+			return{
+				videoList:["","","",""],
+				scrHeight:1334,
+				activeI:0,
+				hasMessages:false,
+				hasBorderView:false,
+				diffScrHeight:0,
+				swProportion:1,
+				textAreaHeight:300
+			}
+		},
+		methods:{
+			palyCli(){
+				this.videoList.push("")
+			},
+			gateBackCli(){
+				uni.navigateBack({
+				    delta: 1
+				});
+			},
+			changeCurr(res){
+				console.log(8880)
+				var oldId = "xspIndex_" + this.activeI;
+				var newId = "xspIndex_" + res.detail.current;
+				var videoDomOld = uni.createVideoContext(oldId, this);
+				var videoDomNew = uni.createVideoContext(newId, this);
+				videoDomOld.pause();
+				videoDomNew.play();
+				this.activeI = res.detail.current;
+			},
+			messageBtn(){
+				this.hasMessages = true
+			},
+			aaa(event){
+				console.log(event.detail,7878)
+			},
+			videoCli(){		//点击视频，  关闭留言/开启，关闭视频
+				if(this.hasMessages){
+					this.hasMessages = false;
+					this.hasBorderView = false;
+				}
+				console.log(8849)
+			},
+			hasBorderViewCli(){
+				this.hasBorderView = true;
+			},
+			textAreaFocus(event){
+				this.textAreaHeight = (this.scrHeight * 3 / 4) - (event.detail.height * this.swProportion) - 150 + this.diffScrHeight;
+				console.log(7744,"---",this.scrHeight * 3 / 4,this.diffScrHeight,event.detail.height * this.swProportion)
+			},
+			cancelCli(){
+				console.log(99955)
+				this.hasMessages = false;
+				this.hasBorderView = false;
+			},
+			returnCli(){}
+		},
+		onLoad(){
+			var _this = this;
+			uni.getSystemInfo({
+				success:function(res){
+					_this.scrHeight = 750 / res.windowWidth * res.windowHeight;
+					_this.diffScrHeight = 750 / res.windowWidth * (res.screenHeight - res.windowHeight);
+					_this.swProportion = 750 / res.windowWidth;
+				}
+			})
+		},
+		onShow(){
+			console.log(8888)	
+		},
+		onReady(){
+			console.log(8889)
+		},
+		onUnload(){ 
+			console.log("页面卸载") 
+		}
+	}
+</script>
+
+<style scoped>
+.videoDom{width:750rpx;}
+.xspIndex{position:fixed;left:0;top:0;width:750rpx;}
+.inputKeyBordBox{position:absolute;width: 750rpx;left:0;bottom:0;background-color:#fff;border-top-left-radius: 14rpx;border-top-right-radius: 14rpx;}
+.inputKeyBordView{position:absolute;width: 750rpx;left:0;bottom:0;background-color:#fff;border-top-left-radius: 14rpx;border-top-right-radius: 14rpx;}
+.borderViewTitle{border-bottom-width: 2rpx;border-bottom-color: rgba(220,220,220,1);padding-left: 36rpx;padding-right: 36rpx;padding-bottom:40rpx;}
+.textAreaDom{height:300rpx;background-color:rgba(190,190,190,.54);border-radius:18rpx}
+</style>

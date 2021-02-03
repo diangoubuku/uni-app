@@ -1,0 +1,93 @@
+<template>
+	<view class="newsPage">
+		<LtitleBar :titleText="titleText" :showBack="false"></LtitleBar>
+		<titleBar :activeI="activeI"></titleBar>
+		<swiper class="swiperPage" :style="'height:' + scrollViewH + 'rpx'" :current="activeI" @change="changeCurr">
+			<swiper-item>
+				<homePage></homePage>
+			</swiper-item>
+			<swiper-item>
+				<domesticPage></domesticPage>
+			</swiper-item>
+			<swiper-item>
+				<InternationalPage></InternationalPage>
+			</swiper-item>
+			<swiper-item>
+				<historyPage></historyPage>
+			</swiper-item>
+		</swiper>
+		<tabBars :tabI="tabI"></tabBars>
+	</view>
+</template>
+
+<script>
+	import LtitleBar from "../commons/LtitleBar.nvue"
+	import titleBar from "./titleBar.nvue"
+	import tabBars from "../commons/tabBar.nvue"
+	import homePage from "./page/homePage.nvue"
+	import domesticPage from "./page/domesticPage.nvue"
+	import InternationalPage from "./page/InternationalPage.nvue"
+	import historyPage from "./page/historyPage.nvue"
+	export default {
+		components:{
+			LtitleBar,
+			titleBar,
+			tabBars,
+			homePage,
+			domesticPage,
+			InternationalPage,
+			historyPage
+		},
+		data(){
+			return{
+				titleText:"新闻频道",
+				tabI:0,
+				activeI:0,
+				scrollViewH:1000
+			}
+		},
+		onLoad(){
+			var _this = this;
+			uni.hideTabBar();
+			uni.$on('changeTitle',function(i){
+				_this.activeI = i
+				console.log('监听到事件来自 update ，携带参数 msg 为：' + i);
+			})
+			uni.getSystemInfo({
+				success:function(res){
+					var hNum = 750 / res.windowWidth * res.windowHeight
+					_this.scrollViewH = hNum - 330;
+					console.log("系统信息",res)
+				}
+			})
+		},
+		onShow(){
+			console.log("onShow")
+		},
+		onReady(){
+			console.log("onReady")
+		},
+		onHide(){
+			console.log("onHide")
+		},
+		onUnload(){
+			console.log("onUnload")
+		},
+		methods:{
+			changeCurr(res){
+				console.log(333)
+				this.activeI = res.detail.current;
+			}
+		}
+		// mounted(){
+		// 	console.log("mounted1")
+			
+		// },
+	}
+</script>
+
+<style scoped>
+	.newsPage{padding:232rpx 0 98rpx;flex-direction:column}
+	.titleView{font-size:30rpx;text-overflow: ellipsis;lines:1}
+	.swiperPage{height:1000}
+</style>

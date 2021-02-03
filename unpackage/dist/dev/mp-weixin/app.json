@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/newsPage/index",
+    "pages/videoPage/index",
+    "pages/imgPage/index",
+    "pages/moviePage/index",
+    "pages/index/index"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "navigationStyle": "custom",
+    "list": [
+      {
+        "pagePath": "pages/newsPage/index"
+      },
+      {
+        "pagePath": "pages/videoPage/index"
+      },
+      {
+        "pagePath": "pages/imgPage/index"
+      },
+      {
+        "pagePath": "pages/moviePage/index"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap11.json"
+}

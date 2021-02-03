@@ -1,0 +1,61 @@
+<template>
+	<view class="tabBar">
+		<navigator open-type="switchTab" url="/pages/newsPage/index">
+			<view :class="tabI == 0 ? 'tabBox' : 'tabBoxActive'">
+				<text class="iconfont" :style="tabI == 0 ? 'color:#f00' : 'color:#333'">&#xe611;</text>
+				<text class="textSpan" :style="tabI == 0 ? 'color:#f00' : 'color:#333'">新闻</text>				
+			</view>
+		</navigator>
+		<navigator open-type="switchTab" url="/pages/videoPage/index">
+			<view :class="tabI == 1 ? 'tabBox' : 'tabBoxActive'">
+				<text class="iconfont" :style="tabI == 1 ? 'color:#f00' : 'color:#333'">&#xe693;</text>
+				<text class="textSpan" :style="tabI == 1 ? 'color:#f00' : 'color:#333'">视频</text>
+			</view>
+		</navigator>
+		<navigator open-type="switchTab" url="/pages/imgPage/index">
+			<view :class="tabI == 2 ? 'tabBox' : 'tabBoxActive'">
+				<text class="iconfont" :style="tabI == 2 ? 'color:#f00' : 'color:#333'">&#xe663;</text>
+				<text class="textSpan" :style="tabI == 2 ? 'color:#f00' : 'color:#333'">图片</text>
+			</view>
+		</navigator>
+		<navigator open-type="switchTab" url="/pages/moviePage/index">
+			<view :class="tabI == 3 ? 'tabBox' : 'tabBoxActive'">
+				<text class="iconfont" :style="tabI == 3 ? 'color:#f00' : 'color:#333'">&#xe600;</text>
+				<text class="textSpan" :style="tabI == 3 ? 'color:#f00' : 'color:#333'">电影</text>
+			</view>
+		</navigator>
+	</view>
+</template>
+
+<script>
+	export default {
+		props:["tabI"],
+		data() {
+			return {
+				tabArr:[{url:"newsPage",text:"新闻"},{url:"videoPage",text:"视频"},{url:"imgPage",text:"图片"},{url:"moviePage",text:"电影"}],
+			}
+		},
+		onReady() {
+			
+		},
+		mounted(){
+			uni.hideTabBar();
+		},
+		methods: {
+			routerTO(i){
+				// if(this.tabI != i){
+				// 	this.tabI = i;
+				// }
+				console.log(i,1,this.tabI) 
+			}
+		}
+	}
+</script>
+
+<style>
+	.tabBar{position:fixed;flex-direction: row;background-color:#fff;height:98rpx;width:750rpx;left:0;bottom:0;text-align:center;justify-content:space-around;border-top-width: 1px;border-top-color: rgba(220,220,220,1);padding-top: 8rpx;}
+	.textSpan{font-size:22rpx;text-align: center;line-height:32rpx}
+	.tabBox{width:185rpx}
+	.tabBoxActive{width:185rpx}
+	/* .iconfont{font-family: iconfont;font-size:48rpx;text-align: center;} */
+</style>

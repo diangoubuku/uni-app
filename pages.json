@@ -1,0 +1,61 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/newsPage/index"
+		},
+		{
+			"path": "pages/videoPage/index"
+		},
+		{
+			"path": "pages/imgPage/index"
+		},
+		{
+			"path": "pages/moviePage/index"
+		},
+		{
+			"path": "pages/index/index"
+		},
+		{
+			"path": "pages/videoPage/view/videoDetail"
+		},
+		{
+			"path": "pages/videoPage/view/xspIndex",
+			"app-pluse":{
+				"popGesture":"close"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"navigationStyle": "custom",		//自定义导航栏
+		"app-plus":{
+			"bounce":"none"
+		}
+	},
+	"tabBar": {
+		"navigationStyle": "custom",		//自定义导航栏
+	    "list": [
+			{
+				"pagePath": "pages/newsPage/index"
+			},
+			{
+				"pagePath": "pages/videoPage/index"
+			},
+			{
+				"pagePath": "pages/imgPage/index"
+			},
+			{
+				"pagePath": "pages/moviePage/index"
+			}
+		]
+	},
+	"easycom": {
+	    "autoscan": true, //是否自动扫描组件
+	    "custom": {//自定义扫描规则
+	      "^uni-(.*)": "@/components/uni-$1.vue"
+	    }
+	 }
+}

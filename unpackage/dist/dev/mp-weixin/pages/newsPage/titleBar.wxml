@@ -1,0 +1,1 @@
+<view class="titleBar p_fixed d_iblock ox_auto oy_hidden"><block wx:for="{{titleArr}}" wx:for-item="items" wx:for-index="index" wx:key="index"><text class="{{[activeI==index?'textSpan c_red':'textSpan']}}">{{items.text}}</text></block></view>
